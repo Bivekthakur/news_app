@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/config/netwok/network_page.dart';
 
-class TechCrunchNews extends StatefulWidget {
-  const TechCrunchNews({super.key});
+class SportsNews extends StatefulWidget {
+  const SportsNews({super.key});
 
   @override
-  State<TechCrunchNews> createState() => _TechCrunchNewsState();
+  State<SportsNews> createState() => _SportsNewsState();
 }
 
-class _TechCrunchNewsState extends State<TechCrunchNews> {
+class _SportsNewsState extends State<SportsNews> {
   @override
   Widget build(BuildContext context) {
 
@@ -16,14 +16,14 @@ class _TechCrunchNewsState extends State<TechCrunchNews> {
 
       body: RefreshIndicator(
         onRefresh: () async{
-          NetworkRequest.getTechCrunchNews();
+          NetworkRequest.getSportNews();
         },
         child: ListView(
           shrinkWrap: true,
           children: [
 
             FutureBuilder(
-                future: NetworkRequest.getTechCrunchNews(),
+                future: NetworkRequest.getSportNews(),
                 builder: (context , snapshot){
 
                   if(snapshot.hasData){
@@ -32,7 +32,7 @@ class _TechCrunchNewsState extends State<TechCrunchNews> {
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: snapshot.data?.length ?? 0,
-                        itemBuilder: (context , index){
+                      itemBuilder: (context , index){
                         var news = snapshot.data?[index];
 
                         return Padding(
@@ -58,16 +58,16 @@ class _TechCrunchNewsState extends State<TechCrunchNews> {
                           ),
                         );
 
-                        },
+                      },
                       separatorBuilder: (BuildContext context, int index) {
-                         return  Divider();
+                        return  Divider();
                       },
                     );
 
 
                   }
                   else if(snapshot.hasError){
-                     return Center(child: Text('Error: ${snapshot.error}'),);
+                    return Center(child: Text('Error: ${snapshot.error}'),);
 
                   }
                   else{
